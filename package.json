@@ -1,0 +1,23 @@
+{
+  "name": "week12-mysql_employee_tracker",
+  "version": "1.0.0",
+  "description": "employee tracker using mysql and inquirer",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nddarnell/Week12-MySQL_Employee_Tracker.git"
+  },
+  "author": "Nathan Darnell",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nddarnell/Week12-MySQL_Employee_Tracker/issues"
+  },
+  "homepage": "https://github.com/nddarnell/Week12-MySQL_Employee_Tracker#readme",
+  "dependencies": {
+    "inquirer": "^7.1.0",
+    "mysql": "^2.18.1"
+  }
+}
