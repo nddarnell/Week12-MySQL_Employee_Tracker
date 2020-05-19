@@ -29,10 +29,16 @@ group by title;
 select first_name, last_name from list_of_employees;
 
 -- view all employees by department
-select first_name, last_name, department from list_of_employees;
+select first_name, last_name, department from list_of_employees
+ORDER BY department;
+
 
 -- view all employees by manager
-select first_name, last_name, manager from list_of_employees;
+select first_name, last_name, manager from list_of_employees
+ORDER BY manager;
+
+-- add employee
+
 
 
 
