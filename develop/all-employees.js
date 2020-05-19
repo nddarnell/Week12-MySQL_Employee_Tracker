@@ -14,20 +14,35 @@ var connection = mysql.createConnection({
     database: "employeeListManager_db"
   });
 
+
+
 var allEmployeeItems = {
     allEmployees: function (){
         // need to place database list of all employees here
-        //should I have my connection item here?
-        console.log("list of all employees here")
-        // items here see activity 11 connection.query
+        connection.query("SELECT first_name, last_name FROM list_of_employees;", (err, allResult)=>{
+            if (err) throw (err)
+            console.table(allResult)
+            connection.end()
+        })
+        // console.log("list of all employees here")
     },
     allEmployeesByDepartment: function(){
         // need to place database list of all employees by department here
-        console.log("all employees by department here")
+        connection.query("SELECT first_name, last_name, department FROM list_of_employees;", (err, allResultByDepartment)=>{
+            if (err) throw (err)
+            console.table(allResultByDepartment)
+            connection.end()
+        })
+        // console.log("all employees by department here")
     },
     allEmployeesByManager: function(){
         // need to place database list of all employees by manager here
-        console.log("list of all employees by manager here")
+        connection.query("SELECT first_name, last_name, manager FROM list_of_employees;", (err, allResultsByManager)=>{
+            if (err) throw (err)
+            console.table(allResultsByManager)
+            connection.end()
+        })
+        // console.log("list of all employees by manager here")
     }
 }
 

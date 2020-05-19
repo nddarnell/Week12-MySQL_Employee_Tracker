@@ -23,5 +23,16 @@ select * from list_of_employees;
 -- view all roles
 select title from list_of_employees 
 where title is not null
-group by title;
+group by title; 
+
+-- view all employees
+select first_name, last_name from list_of_employees;
+
+-- view all employees by department
+select first_name, last_name, department from list_of_employees;
+
+-- view all employees by manager
+select first_name, last_name, manager from list_of_employees;
+
+
 

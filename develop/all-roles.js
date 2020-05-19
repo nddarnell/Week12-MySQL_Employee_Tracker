@@ -24,6 +24,7 @@ var roles = {
         connection.query("SELECT title FROM list_of_employees WHERE title IS NOT NULL GROUP BY title", function (err, roleResult) {
             if (err) throw (err)
             console.table(roleResult)
+            connection.end()
         })
 
 
