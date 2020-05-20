@@ -57,22 +57,33 @@ function userPrompt() {
                     //need inquirer prompt to read list of employees with
                     connection.query("SELECT id, first_name, last_name FROM list_of_employees", (err, listResults)=>{
                         if (err) throw (err)
+                        console.table(listResults)
                         var i;
-                        var names = []
+                        var identification = []
                         for (i = 0; i < listResults.length; i++){
                             // console.log(listResults[i])
-                            names.push(`${listResults[i].first_name} ${listResults[i].last_name}`)
+                            identification.push(`${listResults[i].id}`)
                         }
 
                         inquirer.prompt([{
                             type: "list",
                             name: "choices",
                             message: "Which employee would you like to remove?",
-                            choices: names
+                            choices: identification
                         }])  
                         .then((removeList)=>{
                             // console.log(removeList.choices)
-                            
+                            connection.query("DELETE FROM list_of_employees WHERE ?",
+                            {
+                                id: removeList.choices
+                            },
+                            (err, deletedItem)=>{
+                                if (err) throw (err)
+                                connection.end()
+                            }
+                            )
+
+
                         })
                     })
                     // connection.query("select * from 'table name' ") then whatever is selected use delete from table name where ? `user selection`
