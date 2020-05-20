@@ -38,7 +38,13 @@ select first_name, last_name, manager from list_of_employees
 ORDER BY manager;
 
 -- add employee
+-- See line 15
 
+-- remove employee
+DELETE FROM list_of_employees where first_name = "undefined";
 
+select * from list_of_employees;
+
+select id, first_name, last_name from list_of_employees where id is not null;
 
 

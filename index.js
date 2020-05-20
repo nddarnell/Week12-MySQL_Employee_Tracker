@@ -55,6 +55,26 @@ function userPrompt() {
 
                 case "Remove Employee":
                     //need inquirer prompt to read list of employees with
+                    connection.query("SELECT id, first_name, last_name FROM list_of_employees", (err, listResults)=>{
+                        if (err) throw (err)
+                        var i;
+                        var names = []
+                        for (i = 0; i < listResults.length; i++){
+                            // console.log(listResults[i])
+                            names.push(`${listResults[i].first_name} ${listResults[i].last_name}`)
+                        }
+
+                        inquirer.prompt([{
+                            type: "list",
+                            name: "choices",
+                            message: "Which employee would you like to remove?",
+                            choices: names
+                        }])  
+                        .then((removeList)=>{
+                            // console.log(removeList.choices)
+                            
+                        })
+                    })
                     // connection.query("select * from 'table name' ") then whatever is selected use delete from table name where ? `user selection`
                     break;
 
