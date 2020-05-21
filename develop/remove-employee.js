@@ -1,22 +1,13 @@
 const mysql = require("mysql")
+const inquirer = require("inquirer")
+var connectMe = require("./connection")
 
-var connection = mysql.createConnection({
-    host: "localhost",
 
-    // Your port; if not 3306
-    port: 3306,
-
-    // Your username
-    user: "root",
-
-    // Your password
-    password: "SummerFalls13",
-    database: "employeeListManager_db"
-});
 
 var remove = {
     allRemove: function () {
         //need inquirer prompt to read list of employees with
+        connectMe.connectorFunc()
         connection.query("SELECT id, first_name, last_name FROM list_of_employees", (err, listResults) => {
             if (err) throw (err)
             // console.table(listResults)

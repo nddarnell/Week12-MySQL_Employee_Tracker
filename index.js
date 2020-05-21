@@ -6,23 +6,6 @@ var addEmployee = require("./develop/add-employee")
 var removeEmployee = require("./develop/remove-employee")
 var updateEmployeeInfo = require("./develop/update-employee")
 
-var connection = mysql.createConnection({
-    host: "localhost",
-
-    // Your port; if not 3306
-    port: 3306,
-
-    // Your username
-    user: "root",
-
-    // Your password
-    password: "SummerFalls13",
-    database: "employeeListManager_db"
-});
-
-
-
-
 function userPrompt() {
     return inquirer.prompt([{
         type: "list",
@@ -34,10 +17,7 @@ function userPrompt() {
             switch (result.options) {
                 case "View All Employees":
                     console.log("-----All Employees-----")
-                    // connection.connect info here? see activity 11 or connection.query for moving and stuff
                     employeeList.allEmployees()
-
-
                     break;
 
                 case "View All Employees By Department":
@@ -66,11 +46,10 @@ function userPrompt() {
                     break;
 
                 case "View All Roles":
-                    // this is 100% working how exciting
+                    console.log("-----List of All Roles Here-----")
                     roles.allRoles();
                     break;
             }
         })
-
 }
 userPrompt();

@@ -1,22 +1,11 @@
 const mysql = require("mysql")
 const inquirer = require("inquirer")
-
-var connection = mysql.createConnection({
-    host: "localhost",
-  
-    // Your port; if not 3306
-    port: 3306,
-  
-    // Your username
-    user: "root",
-  
-    // Your password
-    password: "SummerFalls13",
-    database: "employeeListManager_db"
-  });
+var connectMe = require("./connection")
 
 var addEmployees = {
     addEmployeeFunc: function (){
+        connectMe.connectorFunc()
+
         inquirer.prompt([{
             type: "input",
             name: "firstname",
