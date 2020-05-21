@@ -19,7 +19,7 @@ var connection = mysql.createConnection({
 var allEmployeeItems = {
     allEmployees: function (){
         // need to place database list of all employees here
-        connection.query("SELECT first_name, last_name FROM list_of_employees;", (err, allResult)=>{
+        connection.query("SELECT first_name, last_name, title, department, salary, manager FROM list_of_employees;", (err, allResult)=>{
             if (err) throw (err)
             console.table(allResult)
             connection.end()
