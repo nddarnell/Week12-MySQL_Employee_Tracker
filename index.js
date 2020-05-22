@@ -5,7 +5,7 @@ var roles = require("./develop/all-roles")
 var addEmployee = require("./develop/add-employee")
 var removeEmployee = require("./develop/remove-employee")
 var updateEmployeeInfo = require("./develop/update-employee")
-var connectMe = require("./connection")
+var connectMe = require("./develop/connection")
 
 function userPrompt() {
     return inquirer.prompt([{
@@ -50,7 +50,7 @@ function userPrompt() {
                     console.log("-----List of All Roles Here-----")
                     roles.allRoles();
                     break;
-                    
+
                 case "Exit?":
                     inquirer.prompt([{
                         type: "list",
@@ -60,10 +60,11 @@ function userPrompt() {
                     }])
                     .then((exitResult)=>{
                         if (exitResult.exit === "Yes"){
-                            userPrompt();
-                        }else if (exitResult.exit === "No"){
                             connectMe.connectorFunc();
                             connection.end();
+                        }else if (exitResult.exit === "No"){
+                            // this will turn into variablename.userPrompt() need to call userprompt in all files
+                            userPrompt();
                         }
                     })
                 break;
