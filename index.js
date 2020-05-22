@@ -5,13 +5,14 @@ var roles = require("./develop/all-roles")
 var addEmployee = require("./develop/add-employee")
 var removeEmployee = require("./develop/remove-employee")
 var updateEmployeeInfo = require("./develop/update-employee")
+var connectMe = require("./connection")
 
 function userPrompt() {
     return inquirer.prompt([{
         type: "list",
         name: "options",
         message: "What would you like to do?",
-        choices: ["View All Employees", "View All Employees By Department", "View All Employees By Manager", "Add Employee", "Remove Employee", "Update an Employees Information", "View All Roles"]
+        choices: ["View All Employees", "View All Employees By Department", "View All Employees By Manager", "Add Employee", "Remove Employee", "Update an Employees Information", "View All Roles", "Exit?"]
     }])
         .then((result) => {
             switch (result.options) {
@@ -49,7 +50,24 @@ function userPrompt() {
                     console.log("-----List of All Roles Here-----")
                     roles.allRoles();
                     break;
+                    
+                case "Exit?":
+                    inquirer.prompt([{
+                        type: "list",
+                        name: "exit",
+                        message: "Are you sure?",
+                        choices: ["Yes", "No"]
+                    }])
+                    .then((exitResult)=>{
+                        if (exitResult.exit === "Yes"){
+                            userPrompt();
+                        }else if (exitResult.exit === "No"){
+                            connectMe.connectorFunc();
+                            connection.end();
+                        }
+                    })
+                break;
             }
         })
 }
-userPrompt();
+userPrompt()
