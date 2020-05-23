@@ -4,22 +4,43 @@ CREATE TABLE list_of_employees(
 	id INT AUTO_INCREMENT NOT NULL,
     first_name VARCHAR(40) NOT NULL,
     last_name VARCHAR(40) NOT NULL,
-    title VARCHAR(50) NOT NULL,
-    department VARCHAR(50) NOT NULL,
-    salary INT NOT NULL,
-    manager VARCHAR(40) NOT NULL,
+    role_id INT NOT NULL,
+    manager_id INT,
     
     primary key (id)
 );
 
-INSERT INTO list_of_employees(first_name, last_name, title, department, salary, manager)
-VALUES ("Joe", "Nobody", "Salesman", "Sales", 75000, "Alex Bourne"), ("Larry", "Smith", "Salesman", "Sales", 75000, "Alex Bourne"),
-("Alex", "Bourne", "Sales Manager", "Sales", 90000, "Noel Miller"), ("Cody", "Prine", "3D Modeler", "Design", 70000, "Eric Saperstine"),
-("Pat", "Igore", "3D Modeler", "Design", 70000, "Eric Saperstine"), ("Eric", "Saperstine", "Design Manager", "Design", 90000, "Noel Miller"),
-("Patti", "Dole", "HR Rep", "Human Resources", 110000, "Noel Miller"), ("Melissa", "Drake", "Payroll Rep", "Payroll", 55000, "Noel Miller"),
-("Noel", "Miller", "Company Manager", "Board of Directors", 250000, "Share Holders");
+CREATE TABLE department (
+ id INT AUTO_INCREMENT NOT NULL,
+ department_name VARCHAR(30) NOT NULL,
+ PRIMARY KEY (id)
+);
 
-select * from list_of_employees;
+CREATE TABLE roles(
+	id INT AUTO_INCREMENT NOT NULL,
+    title VARCHAR(30) NOT NULL,
+    salary DECIMAL(10,2) NOT NULL,
+    department_name_id INT NOT NULL,
+    PRIMARY KEY (id)
+);
+
+INSERT INTO department(department_name)
+VALUE ("Sales"), ("Design"), ("Payroll");
+
+SELECT * FROM department;
+
+INSERT INTO roles(title, salary, department_name_id)
+Values("Salesman", 65000.00, 1), ("3D Modeler", 70000.00, 2), ("Accountant", 55000.00, 3);
+
+SELECT * FROM roles;
+
+INSERT INTO list_of_employees(first_name, last_name, role_id, manager_id)
+VALUES ("Joe", "Nobody", 1, 0), ("Larry", "Smith", 1, 1), 
+("Cody", "Prine", 2, 0), ("Pat", "Igore", 2, 3),
+("Patti", "Dole", 3, 0), ("Melissa", "Drake", 3, 5);
+
+SELECT * FROM list_of_employees;
+
 drop table list_of_employees;
 -- view all roles
 select title from list_of_employees 
