@@ -4,33 +4,25 @@ var connectMe = require("./connection")
 var allEmployeeItems = {
     allEmployees: function (){
         // need to place database list of all employees here
+        // code fixed with new table
         connectMe.connectorFunc()
-        connection.query("SELECT first_name, last_name, title, department, salary, manager FROM list_of_employees;", (err, allResult)=>{
+        connection.query("SELECT id, first_name, last_name, role_id, manager_id FROM list_of_employees;", (err, allResult)=>{
             if (err) throw (err)
             console.table(allResult)
-            connection.end()
         })
+        
         // console.log("list of all employees here")
     },
-    allEmployeesByDepartment: function(){
+    allDepartment: function(){
         // need to place database list of all employees by department here
+        // code fixed with new table
+
         connectMe.connectorFunc()
-        connection.query("SELECT first_name, last_name, department FROM list_of_employees ORDER BY department;", (err, allResultByDepartment)=>{
+        connection.query("SELECT id, department_name FROM department;", (err, allResultByDepartment)=>{
             if (err) throw (err)
             console.table(allResultByDepartment)
-            connection.end()
         })
         // console.log("all employees by department here")
-    },
-    allEmployeesByManager: function(){
-        // need to place database list of all employees by manager here
-        connectMe.connectorFunc()
-        connection.query("SELECT first_name, last_name, manager FROM list_of_employees ORDER BY manager;", (err, allResultsByManager)=>{
-            if (err) throw (err)
-            console.table(allResultsByManager)
-            connection.end()
-        })
-        // console.log("list of all employees by manager here")
     }
 }
 
