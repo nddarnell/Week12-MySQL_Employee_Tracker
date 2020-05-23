@@ -1,10 +1,22 @@
 const mysql = require("mysql")
 const inquirer = require("inquirer")
+//done
 var employeeList = require("./develop/all-employees")
-var roles = require("./develop/all-roles")
+//done
+var departmentList = require("./develop/all-departments")
+//done
+var rolesList = require("./develop/all-roles")
+// need to update
 var addEmployee = require("./develop/add-employee")
+// done
+var addDepartment = require("./develop/add-department")
+// done
+var addRole = require("./develop/add-role")
+
+// up in the air
 var removeEmployee = require("./develop/remove-employee")
 var updateEmployeeInfo = require("./develop/update-employee")
+//fine as is
 var connectMe = require("./develop/connection")
 
 // main.userPrompt(); to call itself- using setTimeout so exporting this code not necessary
@@ -15,7 +27,7 @@ var main = {
             type: "list",
             name: "options",
             message: "What would you like to do?",
-            choices: ["View All Employees", "View All Departments", "View All Roles", "Add Employee", "Remove Employee", "Update an Employees Information", "Exit?"]
+            choices: ["View All Employees", "View All Departments", "View All Roles", "Add Employee", "Add Department", "Add Role", "Remove Employee", "Update an Employees Information", "Exit?"]
         }])
             .then((result) => {
                 switch (result.options) {
@@ -27,13 +39,13 @@ var main = {
 
                     case "View All Departments":
                         console.log("-----All Employees by Department-----")
-                        employeeList.allDepartment()
+                        departmentList.allDepartment()
                         setTimeout(()=>{ main.userPrompt() }, 750);
                         break;
 
                     case "View All Roles":
                         console.log("-----List of All Roles Here-----")
-                        roles.allRoles()
+                        rolesList.allRoles()
                         setTimeout(()=>{ main.userPrompt() }, 750);
                         break;
 
@@ -41,6 +53,18 @@ var main = {
                         console.log("-----Adding Employee Here-----")
                         addEmployee.addEmployeeFunc()
 
+                        break;
+
+                    case "Add Department":
+                        console.log("-----Adding Department Here-----")
+                        addDepartment.addNewDepartment()
+                        setTimeout(()=>{ main.userPrompt() }, 750);
+                        break;
+
+                    case "Add Role":
+                        console.log("-----Adding Role Here-----")
+                        addRole.addNewRole();
+                        setTimeout(()=>{ main.userPrompt() }, 750);
                         break;
 
                     case "Remove Employee":

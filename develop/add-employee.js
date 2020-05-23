@@ -4,6 +4,7 @@ var connectMe = require("./connection")
 
 var addEmployees = {
     addEmployeeFunc: function (){
+        //need for loops for managerId list and roleid list
         connectMe.connectorFunc()
 
         inquirer.prompt([{
@@ -17,23 +18,14 @@ var addEmployees = {
         },
         {
             type: "input",
-            name: "title",
+            name: "roleId",
             message: "What role will this employee fill?"
         },
         {
-            type: "input",
-            name: "department",
-            message: "What department will this employee fall under?"
-        },
-        {
-            type: "input",
-            name: "salary",
-            message: "What is this employees salary?"
-        },
-        {
+            //add if statement asking if theyre going to be a manager 
             type: "list",
-            name: "manager",
-            message: "Who is this employees manager?",
+            name: "managerId",
+            message: "Who is this employees manager? Use '0' if new employee is a Manager" ,
             choices: ["Alex Bourne", "Eric Saperstine", "Noel Miller"]
         }
         ])
@@ -43,10 +35,8 @@ var addEmployees = {
             {
                 first_name: `${results.firstname}`,
                 last_name: `${results.lastname}`,
-                title: `${results.title}`,
-                department: `${results.department}`,
-                salary: `${results.salary}`,
-                manager: `${results.manager}`
+                role_id: `${results.roleId}`,
+                manager_id: `${results.managerId}`,
             },(err, addResult)=>{
                 if (err) throw (err)
 
@@ -55,7 +45,7 @@ var addEmployees = {
                 if (err) throw (err)
                 console.table(select)
             })
-            connection.end()
+            
             
         })
 
