@@ -24,6 +24,13 @@ CREATE TABLE roles(
     PRIMARY KEY (id)
 );
 
+
+SELECT first_name, last_name, department_name FROM list_of_employees INNER JOIN roles ON list_of_employees.role_id = roles.department_name_id INNER JOIN department ON roles.department_name_id = department.id WHERE list_of_employees.manager_id = 0;
+
+
+SELECT first_name, last_name, department_name FROM list_of_employees INNER JOIN roles ON list_of_employees.role_id = roles.department_name_id INNER JOIN department ON roles.department_name_id = department.id WHERE list_of_employees.manager_id = 0;
+
+
 INSERT INTO department(department_name)
 VALUE ("Sales"), ("Design"), ("Payroll");
 
@@ -38,6 +45,7 @@ INSERT INTO list_of_employees(first_name, last_name, role_id, manager_id)
 VALUES ("Joe", "Nobody", 1, 0), ("Larry", "Smith", 1, 1), 
 ("Cody", "Prine", 2, 0), ("Pat", "Igore", 2, 3),
 ("Patti", "Dole", 3, 0), ("Melissa", "Drake", 3, 5);
+
 
 SELECT * FROM list_of_employees;
 

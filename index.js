@@ -13,7 +13,7 @@ var addDepartment = require("./develop/add-department")
 // done
 var addRole = require("./develop/add-role")
 
-// up in the air
+// up in the air whether or not I want to do it
 var removeEmployee = require("./develop/remove-employee")
 var updateEmployeeInfo = require("./develop/update-employee")
 //fine as is
@@ -23,7 +23,7 @@ var connectMe = require("./develop/connection")
 var main = {
     userPrompt: function () {
 
-        return inquirer.prompt([{
+        inquirer.prompt([{
             type: "list",
             name: "options",
             message: "What would you like to do?",
@@ -34,42 +34,43 @@ var main = {
                     case "View All Employees":
                         console.log("-----All Employees-----")
                         employeeList.allEmployees();
-                        setTimeout(()=>{ main.userPrompt() }, 750);
+                        setTimeout(() => { main.userPrompt() }, 750);
                         break;
 
                     case "View All Departments":
                         console.log("-----All Employees by Department-----")
                         departmentList.allDepartment()
-                        setTimeout(()=>{ main.userPrompt() }, 750);
+                        setTimeout(() => { main.userPrompt() }, 750);
                         break;
 
                     case "View All Roles":
                         console.log("-----List of All Roles Here-----")
                         rolesList.allRoles()
-                        setTimeout(()=>{ main.userPrompt() }, 750);
+                        setTimeout(() => { main.userPrompt() }, 750);
                         break;
 
                     case "Add Employee":
                         console.log("-----Adding Employee Here-----")
                         addEmployee.addEmployeeFunc()
-
+                        // setTimeout(()=>{ main.userPrompt() }, 750);
                         break;
 
                     case "Add Department":
                         console.log("-----Adding Department Here-----")
                         addDepartment.addNewDepartment()
-                        setTimeout(()=>{ main.userPrompt() }, 750);
+                        setTimeout(() => { main.userPrompt() }, 750);
                         break;
 
                     case "Add Role":
                         console.log("-----Adding Role Here-----")
                         addRole.addNewRole();
-                        setTimeout(()=>{ main.userPrompt() }, 750);
+                        setTimeout(() => { main.userPrompt() }, 750);
                         break;
 
                     case "Remove Employee":
                         console.log("-----Removing Employee Here-----")
                         removeEmployee.allRemove()
+
                         break;
 
                     case "Update an Employees Information":
@@ -100,3 +101,5 @@ var main = {
     }
 }
 main.userPrompt();
+
+module.exports = main
