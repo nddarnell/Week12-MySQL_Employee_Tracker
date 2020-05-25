@@ -9,6 +9,9 @@ CREATE TABLE list_of_employees(
     
     primary key (id)
 );
+drop table list_of_employees;
+drop table roles;
+drop table department;
 
 CREATE TABLE department (
  id INT AUTO_INCREMENT NOT NULL,
@@ -28,7 +31,7 @@ CREATE TABLE roles(
 SELECT first_name, last_name, department_name FROM list_of_employees INNER JOIN roles ON list_of_employees.role_id = roles.department_name_id INNER JOIN department ON roles.department_name_id = department.id WHERE list_of_employees.manager_id = 0;
 
 
-SELECT first_name, last_name, department_name FROM list_of_employees INNER JOIN roles ON list_of_employees.role_id = roles.department_name_id INNER JOIN department ON roles.department_name_id = department.id WHERE list_of_employees.manager_id = 0;
+SELECT first_name, last_name, role_id, department_name, title FROM list_of_employees INNER JOIN roles ON list_of_employees.role_id = roles.department_name_id INNER JOIN department ON roles.department_name_id = department.id;
 
 
 INSERT INTO department(department_name)

@@ -96,7 +96,7 @@ var addEmployees = {
                                             {
                                                 first_name: `${results.firstname}`,
                                                 last_name: `${results.lastname}`,
-                                                role_id: `${results.roleId}`,
+                                                role_id: `${results.roleId.id}`,
                                                 manager_id: `${newAddition.managerChoice.id}`
                                             }, (err, addRes) => {
                                                 if (err) throw (err)
