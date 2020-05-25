@@ -48,6 +48,7 @@ var addRoles = {
                     department_name_id: `${result.departmentAdd.id}`
                 }, (err, response)=>{
                     if (err) throw (err)
+                    connection.end()
                 })
             })
         })

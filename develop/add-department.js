@@ -6,7 +6,7 @@ var addDepartment = {
     addNewDepartment: function () {
         // need to add departments here
         connectMe.connectorFunc()
-        
+
 
         inquirer.prompt([{
             type: "input",
@@ -19,6 +19,7 @@ var addDepartment = {
                 department_name: `${result.departmentAdd}`
             }, (err, response)=>{
                 if (err) throw (err)
+                connection.end()
             })
         })
     }

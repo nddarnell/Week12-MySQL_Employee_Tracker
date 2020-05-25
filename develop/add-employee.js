@@ -1,7 +1,6 @@
 const mysql = require("mysql")
 const inquirer = require("inquirer")
 var connectMe = require("./connection")
-var mainCode = require("../index")
 
 var addEmployees = {
     addEmployeeFunc: function () {
@@ -56,8 +55,10 @@ var addEmployees = {
                                     manager_id: 0
                                 }, (err, addRes) => {
                                     if (err) throw (err)
-                                    mainCode.userPrompt();
+                                    // mainCode.userPrompt(); not working this way
+                                    connection.end()
                                 })
+                            
                             break;
 
                         case "No":
@@ -99,6 +100,8 @@ var addEmployees = {
                                                 manager_id: `${newAddition.managerChoice.id}`
                                             }, (err, addRes) => {
                                                 if (err) throw (err)
+                                                // main.userPrompt() not working
+                                                connection.end()
                                             })
                                     })
 

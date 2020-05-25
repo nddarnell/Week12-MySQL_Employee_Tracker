@@ -38,7 +38,7 @@ Build a command-line application that at a minimum allows the user to:
 
 Bonus points if you're able to:
 
-  * Update employee managers 
+  * Update employee managers
 
   * View employees by manager 
 

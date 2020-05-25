@@ -6,162 +6,59 @@ var updateEmployeeStatus = {
     employeesNewStatus: function () {
         connectMe.connectorFunc()
         // prompt update employee role or manager?
-        inquirer.prompt([{
-            type: "list",
-            name: "updates",
-            message: "What would you like to update?",
-            choices: ["Update an Employees Role", "Update an Employees Manager"]
-        }])
-            // see activity 9 
-            //update 'table name' set ? where ?
-            .then((employeeUpdate) => {
-                switch (employeeUpdate.updates) {
-                    case "Update an Employees Role":
-                        connection.query("SELECT id, first_name, last_name, title, department, manager FROM list_of_employees", (err, employeeList) => {
-                            if (err) throw (err)
-                            var i;
-                            var roleChanges = []
 
-                            for (i = 0; i < employeeList.length; i++) {
-                                // console.log(listResults[i])
-                                // identification.push(`${listResults[i].id}`)
-                                var employee = {
-                                    name: `${employeeList[i].first_name} ${employeeList[i].last_name}`,
-                                    value: {
-                                        first_name: `${employeeList[i].first_name}`,
-                                        last_name: `${employeeList[i].last_name}`,
-                                        title: `${employeeList[i].title}`,
-                                        department: `${employeeList[i].department}`,
-                                        manager: `${employeeList[i].manager}`,
-                                        id: `${employeeList[i].id}`
-                                    }
+        connection.query("SELECT id, first_name, last_name, role_id FROM list_of_employees", (err, employeeList) => {
+            if (err) throw (err)
+            var i;
+            var listAll = []
+            for (i = 0; i < employeeList.length; i++) {
+                var employee = {
+                    name: `${employeeList[i].first_name} ${employeeList[i].last_name}, Current Role Id: ${employeeList[i].role_id} `,
+                    value: {
+                        id: `${employeeList[i].id}`,
+                        first_name: `${employeeList[i].first_name}`,
+                        last_name: `${employeeList[i].last_name}`,
+                        role_id: `${employeeList[i].role_id}`
+                    }
+                }
+                listAll.push(employee)
+            }
+            inquirer.prompt(
+                [{
+                    type: "list",
+                    name: "updates",
+                    message: "Which Employee is requiring the role update?",
+                    choices: listAll
+                }])
+                .then((roleUpdate) => {
+                    var table = "SELECT DISTINCT role_id, department_name FROM list_of_employees INNER JOIN roles ON list_of_employees.role_id = roles.department_name_id INNER JOIN department ON roles.department_name_id = department.id;"
+                    connection.query(table, (err, resultingList) => {
+                        if (err) throw (err)
+                        console.table(resultingList)
 
-                                };
-                                roleChanges.push(employee)
-
-                            }
-
-                            inquirer.prompt([{
-                                type: "list",
-                                name: "employeeChoice",
-                                message: "Which employees role would you like to update?",
-                                choices: roleChanges
+                        inquirer.prompt([{
+                            type: "input",
+                            name: "newRole",
+                            message: "What new Role will the employee fill? Must be a number. See Table above for reference"
+                        }])
+                        .then((newRoleNumber)=>{
+                            // console.log(newRoleNumber.newRole)
+                            connection.query("UPDATE list_of_employees SET ? WHERE ?",
+                            [{
+                                role_id: `${newRoleNumber.newRole}`
                             },
                             {
-                                type: "list",
-                                name: "employeeRole",
-                                message: "What role do you want the Employee to fill?",
-                                choices: ["Salesman", "Sales Lead", "3D Modeler", "Design Lead", "Payroll Rep", "HR Rep"]
-
-                            }
-                            ])
-                                .then((updateEmployeeRole) => {
-                                    connection.query("UPDATE list_of_employees SET ? WHERE ?",
-                                        [{
-                                            title: updateEmployeeRole.employeeRole
-                                        },
-                                        {
-                                            id: updateEmployeeRole.employeeChoice.id
-                                        }],
-                                        (err, roleUpdates) => {
-                                            if (err) throw (err)
-
-                                        }
-                                    )
-                                })
-                                .then(() => {
-                                    connection.query("SELECT id, first_name, last_name, title FROM list_of_employees ORDER BY title", (err, updatedEmployeeList) => {
-                                        if (err) throw (err)
-                                        console.table(updatedEmployeeList)
-                                        connection.end()
-                                    })
-                                })
-                        })
-                        break;
-                    case "Update an Employees Manager":
-                        connection.query("SELECT id, first_name, last_name, title, department, manager FROM list_of_employees", (err, employeeListTwo) => {
-                            if (err) throw (err)
-                            var i;
-                            var managerChanges = []
-
-                            for (i = 0; i < employeeListTwo.length; i++) {
-                                // console.log(listResults[i])
-                                // identification.push(`${listResults[i].id}`)
-                                var employeeInfo = {
-                                    name: `${employeeListTwo[i].first_name} ${employeeListTwo[i].last_name}`,
-                                    value: {
-                                        first_name: `${employeeListTwo[i].first_name}`,
-                                        last_name: `${employeeListTwo[i].last_name}`,
-                                        title: `${employeeListTwo[i].title}`,
-                                        department: `${employeeListTwo[i].department}`,
-                                        manager: `${employeeListTwo[i].manager}`,
-                                        id: `${employeeListTwo[i].id}`
-                                    }
-
-                                };
-                                managerChanges.push(employeeInfo)
-
-                            }
-                            connection.query("SELECT id, first_name, last_name, title FROM list_of_employees WHERE title Like '%manage%'", (err, managerQuery) => {
+                                id: `${roleUpdate.updates.id}`
+                            }],
+                            (err, finishedRoleChange)=>{
                                 if (err) throw (err)
-                                var l;
-                                var managerList = []
-                                for (l = 0; l < managerQuery.length; l++) {
-                                    var managerInfo = {
-                                        name: `${managerQuery[l].first_name} ${managerQuery[l].last_name}`,
-                                        value: {
-                                            name: `${managerQuery[l].first_name}, ${managerQuery[l].last_name}`,
-                                            first_name: `${managerQuery[l].first_name}`,
-                                            last_name: `${managerQuery[l].last_name}`,
-                                            title: `${managerQuery[l].title}`,
-                                            id: `${managerQuery[l].id}`
-                                        }
-                                    };
-                                    managerList.push(managerInfo)
-                                }
-                                inquirer.prompt([{
-                                    type: "list",
-                                    name: "employeeChoiceTwo",
-                                    message: "Which employee would you like to update?",
-                                    choices: managerChanges
-                                },
-                                {
-                                    type: "list",
-                                    name: "managers",
-                                    message: "Which Manager should the Employee report to?",
-                                    choices: managerList
-
-                                }
-                                ])
-                                    .then((updateEmployeeManager) => {
-                                        connection.query("UPDATE list_of_employees SET ? WHERE ?",
-                                            [{
-                                                manager: updateEmployeeManager.managers.name
-                                            },
-                                            {
-                                                id: updateEmployeeManager.employeeChoiceTwo.id
-                                            }],
-                                            (err, roleUpdates) => {
-                                                if (err) throw (err)
-
-                                            }
-                                        )
-                                    })
-                                    .then(() => {
-                                        connection.query("SELECT id, first_name, last_name, manager FROM list_of_employees ORDER BY manager", (err, updatedEmployeeListAgain) => {
-                                            if (err) throw (err)
-                                            console.table(updatedEmployeeListAgain)
-                                            connection.end()
-                                        })
-                                    });
-                            })
-
+                                connection.end()
+                            }
+                            )
                         })
-                        break;
-                }
-
-            })
-
+                    })
+                })
+        })
     }
 }
 

@@ -10,10 +10,11 @@ var allEmployeeItems = {
         connection.query(query, (err, allResult)=>{
             if (err) throw (err)
             console.table(allResult)
-        })
+        });
         
         // console.log("list of all employees here")
     }
 }
 
 module.exports = allEmployeeItems
+
