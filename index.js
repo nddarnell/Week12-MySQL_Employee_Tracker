@@ -15,7 +15,7 @@ var addRole = require("./develop/add-role")
 //done
 var updateEmployeeRole = require("./develop/update-employee")
 
-// up in the air whether or not I want to do it
+// up in the air whether or not I want to do it -----------------
 var removeEmployee = require("./develop/remove-employee")
 
 //fine as is
@@ -72,12 +72,6 @@ var main = {
                         console.log("-----Updating Employee Role Here-----")
                         updateEmployeeRole.employeesNewStatus()
                         // setTimeout(()=> { main.userPrompt() }, 750);
-                        break;
-
-                    case "Remove Employee":
-                        console.log("-----Removing Employee Here-----")
-                        removeEmployee.allRemove()
-
                         break;
 
                     case "Exit?":
