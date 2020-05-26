@@ -1,24 +1,12 @@
 const mysql = require("mysql")
 const inquirer = require("inquirer")
-//done
 var employeeList = require("./develop/all-employees")
-//done
 var departmentList = require("./develop/all-departments")
-//done
 var rolesList = require("./develop/all-roles")
-// done
 var addEmployee = require("./develop/add-employee")
-// done
 var addDepartment = require("./develop/add-department")
-// done
 var addRole = require("./develop/add-role")
-//done
 var updateEmployeeRole = require("./develop/update-employee")
-
-// up in the air whether or not I want to do it -----------------
-var removeEmployee = require("./develop/remove-employee")
-
-//fine as is
 var connectMe = require("./develop/connection")
 
 // main.userPrompt(); to call itself- using setTimeout so exporting this code not necessary
